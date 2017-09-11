@@ -21,7 +21,7 @@ units angstrom
 """
 
 
-_frag1_rdict = {'fragment_charges': [0, 0],
+_frag1_rdict = {'fragment_charges': [0.0, 0.0],
  'fragment_multiplicities': [1, 1],
  'fragment_types': ['Real', 'Real'],
  'fragments': [[0, 6], [6, 10]],
@@ -32,9 +32,12 @@ _frag1_rdict = {'fragment_charges': [0, 0],
                  'mass': 12,
                  'qm_type': 'qmcart',
                  'symbol': 'C',
-                 'x': 0.0,
-                 'y': -0.667578,
-                 'z': -2.124659},
+                 'x':   0.000000000000, 'y':    -1.261539592340,
+                 #'z':    -4.021632563049},  # com
+                 'z':  -4.015023635771},  # no_com
+                 #'x': 0.0,
+                 #'y': -0.667578,
+                 #'z': -2.124659},
                 {'Z': 6.0,
                  'charge': 6.0,
                  'ghosted': False,
@@ -42,9 +45,12 @@ _frag1_rdict = {'fragment_charges': [0, 0],
                  'mass': 12,
                  'qm_type': 'qmcart',
                  'symbol': 'C',
-                 'x': 0.0,
-                 'y': 0.667578,
-                 'z': -2.124659},
+                 'x':  -0.000000000000, 'y':     1.261539592340,
+                 #'z':    -4.021632563049},  # com
+                 'z':  -4.015023635771},  # no_com
+                 #'x': 0.0,
+                 #'y': 0.667578,
+                 #'z': -2.124659},
                 {'Z': 1.0,
                  'charge': 1.0,
                  'ghosted': False,
@@ -52,9 +58,12 @@ _frag1_rdict = {'fragment_charges': [0, 0],
                  'mass': 1.00782503207,
                  'qm_type': 'qmcart',
                  'symbol': 'H',
-                 'x': 0.923621,
-                 'y': -1.232253,
-                 'z': -2.126185},
+                 'x':   1.745390740582, 'y':    -2.328620696427,
+                 #'z':    -4.024516285128},  # com
+                 'z':  -4.017907357849},  # no_com
+                 #'x': 0.923621,
+                 #'y': -1.232253,
+                 #'z': -2.126185},
                 {'Z': 1.0,
                  'charge': 1.0,
                  'ghosted': False,
@@ -62,9 +71,12 @@ _frag1_rdict = {'fragment_charges': [0, 0],
                  'mass': 1.00782503207,
                  'qm_type': 'qmcart',
                  'symbol': 'H',
-                 'x': -0.923621,
-                 'y': -1.232253,
-                 'z': -2.126185},
+                 'x':  -1.745390740582, 'y':    -2.328620696427,
+                 #'z':    -4.024516285128},  # com
+                 'z':  -4.017907357849},  # no_com
+                 #'x': -0.923621,
+                 #'y': -1.232253,
+                 #'z': -2.126185},
                 {'Z': 1.0,
                  'charge': 1.0,
                  'ghosted': False,
@@ -72,9 +84,12 @@ _frag1_rdict = {'fragment_charges': [0, 0],
                  'mass': 1.00782503207,
                  'qm_type': 'qmcart',
                  'symbol': 'H',
-                 'x': -0.923621,
-                 'y': 1.232253,
-                 'z': -2.126185},
+                 'x':  -1.745390740582, 'y':     2.328620696427,
+                 #'z':    -4.024516285128},  # com
+                 'z':  -4.017907357849},  # no_com
+                 #'x': -0.923621,
+                 #'y': 1.232253,
+                 #'z': -2.126185},
                 {'Z': 1.0,
                  'charge': 1.0,
                  'ghosted': False,
@@ -82,9 +97,12 @@ _frag1_rdict = {'fragment_charges': [0, 0],
                  'mass': 1.00782503207,
                  'qm_type': 'qmcart',
                  'symbol': 'H',
-                 'x': 0.923621,
-                 'y': 1.232253,
-                 'z': -2.126185},
+                 'x':   1.745390740582, 'y':     2.328620696427,
+                 #'z':    -4.024516285128},  # com
+                 'z':  -4.017907357849},  # no_com
+                 #'x': 0.923621,
+                 #'y': 1.232253,
+                 #'z': -2.126185},
                 {'Z': 6.0,
                  'charge': 6.0,
                  'ghosted': False,
@@ -92,9 +110,12 @@ _frag1_rdict = {'fragment_charges': [0, 0],
                  'mass': 12,
                  'qm_type': 'qmcart',
                  'symbol': 'C',
-                 'x': 0.0,
-                 'y': 0.0,
-                 'z': 2.900503},
+                 'x':  -0.000000000000, 'y':     0.000000000000,
+                 #'z':     5.474547390335},  # com
+                 'z':   5.481156317613},  # no_com
+                 #'x': 0.0,
+                 #'y': 0.0,
+                 #'z': 2.900503},
                 {'Z': 6.0,
                  'charge': 6.0,
                  'ghosted': False,
@@ -102,9 +123,12 @@ _frag1_rdict = {'fragment_charges': [0, 0],
                  'mass': 12,
                  'qm_type': 'qmcart',
                  'symbol': 'C',
-                 'x': 0.0,
-                 'y': 0.0,
-                 'z': 1.69324},
+                 'x':  -0.000000000000, 'y':     0.000000000000,
+                 #'z':     3.193150949969},  # com
+                 'z':   3.199759877247},  # no_com
+                 #'x': 0.0,
+                 #'y': 0.0,
+                 #'z': 1.69324},
                 {'Z': 1.0,
                  'charge': 1.0,
                  'ghosted': False,
@@ -112,9 +136,12 @@ _frag1_rdict = {'fragment_charges': [0, 0],
                  'mass': 1.00782503207,
                  'qm_type': 'qmcart',
                  'symbol': 'H',
-                 'x': 0.0,
-                 'y': 0.0,
-                 'z': 0.627352},
+                 'x':  -0.000000000000, 'y':     0.000000000000,
+                 #'z':     1.178914541639},  # com
+                 'z':   1.185523468918},  # no_com
+                 #'x': 0.0,
+                 #'y': 0.0,
+                 #'z': 0.627352},
                 {'Z': 1.0,
                  'charge': 1.0,
                  'ghosted': False,
@@ -122,19 +149,25 @@ _frag1_rdict = {'fragment_charges': [0, 0],
                  'mass': 1.00782503207,
                  'qm_type': 'qmcart',
                  'symbol': 'H',
-                 'x': 0.0,
-                 'y': 0.0,
-                 'z': 3.963929}],
+                 'x':  -0.000000000000, 'y':     0.000000000000,
+                 #'z':     7.484131292925}],  # com
+                 'z':   7.490740220203}],  # no_com
+                 #'x': 0.0,
+                 #'y': 0.0,
+                 #'z': 3.963929}],
  'input_units_to_au': 1.8897261328856432,
- 'name': 'dimer',
- 'units': 'Angstrom'}
+ 'name': 'dimer'}
+# 'units': 'Angstrom'}
 
 
 def test_frag1_b():
     """tu5"""
 
     wdict = molparse.init_psi4_molecule_from_any_string(_frag1_str, name='dimer')
-    #print('RDICT', _frag1_rdict, '\n\n', 'WDICT', wdict, '\n')
+    #print('\nRDICT')
+    #pprint.pprint(_frag1_rdict)
+    #print('\nWDICT')
+    #pprint.pprint(wdict['molecule'])
     assert(compare_dicts(_frag1_rdict, wdict['molecule'], 6, sys._getframe().f_code.co_name + ': str --> dict'))
 
 
@@ -149,7 +182,6 @@ def test_frag1_q():
     assert(compare_values(emol, qmol.nuclear_repulsion_energy(), 6, sys._getframe().f_code.co_name + ': dict --> qcdbobj'))
 
     qdict = qmol.to_dict()
-    #print('RDICT', _frag1_rdict, '\n\n', 'QDICT', qdict, '\n')
     assert(compare_dicts(_frag1_rdict, qdict, 6, sys._getframe().f_code.co_name + ': qcdbobj --> dict'))
 
 
@@ -164,7 +196,7 @@ units au
 """
 
 
-_frag2_rdict = {'fragment_charges': [0, 0, 0],
+_frag2_rdict = {'fragment_charges': [0.0, 0.0, 0.0],
  'fragment_multiplicities': [1, 1, 1],
  'fragment_types': ['Real', 'Real', 'Real'],
  'fragments': [[0, 1], [1, 2], [2, 3]],
@@ -199,15 +231,14 @@ _frag2_rdict = {'fragment_charges': [0, 0, 0],
                  'y': 4.0,
                  'z': 0.0}],
  'input_units_to_au': 1.0,
- 'name': 'default',
- 'units': 'Bohr'}
+ 'name': 'default'}
+# 'units': 'Bohr'}
 
 
 def test_frag2_b():
     """nbody-he-cluster"""
 
     wdict = molparse.init_psi4_molecule_from_any_string(_frag2_str)
-    #print('RDICT', _frag2_rdict, '\n\n', 'WDICT', wdict, '\n')
     assert(compare_dicts(_frag2_rdict, wdict['molecule'], 6, sys._getframe().f_code.co_name + ': str --> dict'))
 
 
@@ -222,60 +253,5 @@ def test_frag2_q():
     assert(compare_values(emol, qmol.nuclear_repulsion_energy(), 6, sys._getframe().f_code.co_name + ': dict --> qcdbobj'))
 
     qdict = qmol.to_dict()
-    #print('RDICT', _frag2_rdict, '\n\n', 'QDICT', qdict, '\n')
     assert(compare_dicts(_frag2_rdict, qdict, 6, sys._getframe().f_code.co_name + ': qcdbobj --> dict'))
-
-
-## <<<  https://stackoverflow.com/a/18860653
-#def dict_compare(d1, d2):
-#    d1_keys = set(d1.keys())
-#    d2_keys = set(d2.keys())
-#    intersect_keys = d1_keys.intersection(d2_keys)
-#    added = d1_keys - d2_keys
-#    removed = d2_keys - d1_keys
-#    modified = {o : (d1[o], d2[o]) for o in intersect_keys if d1[o] != d2[o]}
-#    same = set(o for o in intersect_keys if d1[o] == d2[o])
-#    return added, removed, modified, same
-## https://stackoverflow.com/a/18860653 >>>
-#
-#
-#def dsame(ref, test):
-#    """Compares dictionary *test* to *ref* by keys and values.
-#
-#    Uses dict_compare.
-#    Returns True if no keys added or removed in *test* with respect to
-#    *ref* and if all the values are identical, else False.
-#
-#    """
-#    added, removed, modified, same = dict_compare(test, ref)
-#    if added or removed or modified:
-#        if added:
-#            print('  Added:', *added)
-#        if removed:
-#            print('  Removed:', *removed)
-#        if modified:
-#            print('  Modified:')
-#            for item in modified:
-#                try:
-#                    if isinstance(test[item][0], dict):
-#                        for idx, ll in enumerate(test[item]):
-#                            print('  {}: '.format(idx), end='')
-#                            if dsame(ref[item][idx], test[item][idx]):
-#                                print('same')
-#                except TypeError:
-#                #else:
-#                    print('    ', item, ':', ref[item], '-->', test[item])
-#        return False
-#    else:
-#        return True
-
-
-if __name__ == "__main__":
-    #test_frag1()
-    #test_frag2()
-
-    test_frag1_b()
-    test_frag1_q()
-    test_frag2_b()
-    test_frag2_q()
 
