@@ -37,7 +37,9 @@ def init_psi4_molecule_from_any_string(mol_str, **kwargs):
 
             # << 2 >> dict[m] -- seed Psi4 minimal and default fields
             mol_init = {'name': mname,
-                        'units': 'Angstrom',
+                        #'units': 'Angstrom',
+                        #'input_units_to_au': 1.0 / constants.bohr2angstroms,
+                        #'units': 'Bohr',
                         'input_units_to_au': 1.0 / constants.bohr2angstroms,
                         'fragments': [],
                         'fragment_types': [],
@@ -60,7 +62,7 @@ def init_psi4_molecule_from_any_string(mol_str, **kwargs):
                 mol_init['fix_orientation'] = True
                 mol_init['fix_symmetry'] = 'c1'
 
-            mol_str, mints_init = filter_mints(mol_str)
+            mol_str, mints_init = filter_mints(mol_str, confer=mol_init)
             mol_init.update(mints_init)
 
             mol_init = reconcile_cgmp(mol_init)
@@ -87,7 +89,7 @@ def reconcile_cgmp(pydict):
     def reconcile_charges(chg, fchg):
         """expects None as placeholder for not specified"""
 
-        naive_fchg = apply_default(fchg, 0)
+        naive_fchg = apply_default(fchg, 0.0)
 
         if chg is None:
             # Sys: None, Frag: [-1, 1] --> Sys: 0, Frag: [-1, 1]
@@ -101,7 +103,7 @@ def reconcile_cgmp(pydict):
                 first = fchg.index(None)
                 tmp = fchg[:]
                 tmp[first] = missing_frag_chg
-                return chg, apply_default(tmp, 0)
+                return chg, apply_default(tmp, 0.0)
             else:
                 if chg == sum(fchg):
                     # Sys: 0, Frag: [-1, 1] --> Sys: 0, Frag: [-1, 1]
@@ -165,7 +167,6 @@ def reconcile_cgmp(pydict):
     return pydict
 
 
-
 def filter_pubchem(mol_str):
     pass
     pubchemerror = re.compile(r'^\s*PubchemError\s*$', re.IGNORECASE)
@@ -205,10 +206,10 @@ def filter_universals(mol_str):  # needed?, seed=None):
 
     def process_bohrang(matchobj):
         if matchobj.group('uang'):
-            univ['units'] = 'Angstrom'
+            #univ['units'] = 'Angstrom'
             univ['input_units_to_au'] = 1.0 / constants.bohr2angstroms
         elif matchobj.group('ubohr'):
-            univ['units'] = 'Bohr'
+            #univ['units'] = 'Bohr'
             univ['input_units_to_au'] = 1.0
         return ''
 
@@ -233,7 +234,9 @@ def filter_universals(mol_str):  # needed?, seed=None):
     return '\n'.join(reconstitute), univ
 
 
-def filter_mints(mol_str, seed=None):
+#def filter_mints(mol_str, seed=None):
+def filter_mints(mol_str, confer=None):
+    """confer is read-only"""
 
     fragment_re = re.compile(r'^\s*--\s*$', re.MULTILINE)
     ATOM = r'(?:(?P<gh1>@)|(?P<gh2>Gh\())?(?P<label>(?P<symbol>[A-Z]{1,3})(?:(_\w+)|(\d+))?)(?(gh2)\))(?:@(?P<mass>\d+\.\d+))?'
@@ -260,7 +263,7 @@ def filter_mints(mol_str, seed=None):
     def filter_fragment(mol_str):
 
         def process_fragment_cgmp(matchobj):
-            mints_init['fragment_charges'].append(int(matchobj.group('chg')))
+            mints_init['fragment_charges'].append(float(matchobj.group('chg')))
             mints_init['fragment_multiplicities'].append(int(matchobj.group('mult')))
             return ''
 
@@ -296,9 +299,9 @@ def filter_mints(mol_str, seed=None):
 
             atom_init = process_atom_spec(matchobj)
             atom_init['qm_type'] = 'qmcart'
-            atom_init['x'] = float(matchobj.group(8))
-            atom_init['y'] = float(matchobj.group(9))
-            atom_init['z'] = float(matchobj.group(10))
+            atom_init['x'] = float(matchobj.group(8)) * input_units_to_au
+            atom_init['y'] = float(matchobj.group(9)) * input_units_to_au
+            atom_init['z'] = float(matchobj.group(10)) * input_units_to_au
 
             mints_init['full_atoms'].append(atom_init)
             return ''
@@ -360,8 +363,13 @@ def filter_mints(mol_str, seed=None):
     mints_init['fragment_charges'] = []
     mints_init['fragment_multiplicities'] = []
     mints_init['full_atoms'] = []
-    if seed:
-        mints_init = seed
+    #if seed:
+    #    mints_init = seed
+
+    if confer and ('input_units_to_au' in confer):
+        input_units_to_au = confer['input_units_to_au']
+    else:
+        input_units_to_au = 1.0
 
     # handle `--`-demarcated blocks
     for ifr, frag in enumerate(re.split(fragment_re, mol_str)):
@@ -395,14 +403,8 @@ def filter_libefp(mol_str, confer=None):
 
     def process_efpxyzabc(matchobj):
         efp_frags.append({'efp_type': 'xyzabc',
-        #efp_geom.append({'efp_type': 'xyzabc',
-                         'fragment_file': matchobj.group(1),
-                         #'coordinates_hint': [float(matchobj.group(2)),
-                         #                     float(matchobj.group(3)),
-                         #                     float(matchobj.group(4)),
-                         #                     float(matchobj.group(5)),
-                         #                     float(matchobj.group(6)),
-                         #                     float(matchobj.group(7))]})
+        # NOTE: imposing case on file
+                         'fragment_file': matchobj.group(1).lower(),
                          'coordinates_hint': [float(matchobj.group(2)) * input_units_to_au,
                                               float(matchobj.group(3)) * input_units_to_au,
                                               float(matchobj.group(4)) * input_units_to_au,
@@ -413,16 +415,7 @@ def filter_libefp(mol_str, confer=None):
 
     def process_efppoints(matchobj):
         efp_frags.append({'efp_type': 'points',
-                         'fragment_file': matchobj.group(1),
-                         #'coordinates_hint': [float(matchobj.group(2)),
-                         #                     float(matchobj.group(3)),
-                         #                     float(matchobj.group(4)),
-                         #                     float(matchobj.group(5)),
-                         #                     float(matchobj.group(6)),
-                         #                     float(matchobj.group(7)),
-                         #                     float(matchobj.group(8)),
-                         #                     float(matchobj.group(9)),
-                         #                     float(matchobj.group(10))]})
+                         'fragment_file': matchobj.group(1).lower(),
                          'coordinates_hint': [float(matchobj.group(2)) * input_units_to_au,
                                               float(matchobj.group(3)) * input_units_to_au,
                                               float(matchobj.group(4)) * input_units_to_au,
@@ -436,19 +429,14 @@ def filter_libefp(mol_str, confer=None):
 
     reconstitute = []
     efp_init = {}
-    efp_frags = []
-#    efp_init['full_fragments'] = []  # list of dicts, one for each efp fragment in mol_str
+    efp_frags = []  # list of dicts, one for each efp fragment in mol_str
 
     # << 4.1 >>  findsldkjfsl
     # NOTE: applying libefp default of AU
     if confer and ('input_units_to_au' in confer):
         input_units_to_au = confer['input_units_to_au']
-    #    print('ZXZX converting to', input_units_to_au)
     else:
         input_units_to_au = 1.0
-    #    print('ZXZX setting to', input_units_to_au)
-    #efp_init['input_units_to_au'] = input_units_to_au
-
 
     # handle `--`-demarcated blocks
     for frag in re.split(fragment, mol_str):
@@ -458,6 +446,7 @@ def filter_libefp(mol_str, confer=None):
             reconstitute.append(frag)
     if efp_frags:
         efp_init['full_fragments'] = efp_frags
+        efp_init['molecule'] = {'input_units_to_au': input_units_to_au}
 
     return '\n--\n'.join(reconstitute), efp_init
 
